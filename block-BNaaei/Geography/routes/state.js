@@ -35,23 +35,42 @@ router.post('/new', async function(req, res, next) {
 });
 
 
-// GET country in asc/desc
+// GET states in asc/desc
 router.get('/:id/sortby', async(req, res, next) => {
   const type = req.query.type;
   let id = req.params.id;
   if(type === "asc"){
     let states = await State.aggregate([
       {$match:{"country": mongoose.Types.ObjectId(id)}},
-      {$sort:{population:1}}
+      {$sort:{name:1}}
     ])
     return res.send(states);
   }else if(type === "desc"){
     let states = await State.aggregate([
       {$match:{"country": mongoose.Types.ObjectId(id)}},
-      {$sort:{population:-1}}
+      {$sort:{name:-1}}
     ])
     return res.send(states);
   }
+})
+
+// GET ascending order of their population
+router.get('/:id/sortbyasc', async(req, res, next) => {
+  const type = req.query.type;
+  let id = req.params.id;
+  let states = await State.aggregate([
+    {$match:{"country": mongoose.Types.ObjectId(id)}},
+    {$sort:{population:1}}
+  ])
+  return res.send(states);
+})
+
+// GET all neighbouring states
+
+router.get('/:id/neighbouringstates', async(req, res, next) => {
+  let id = req.params.id;
+  let states = await State.findById(id).populate('neighbouring_states');
+  return res.send(states.neighbouring_states);
 })
 
 module.exports = router;

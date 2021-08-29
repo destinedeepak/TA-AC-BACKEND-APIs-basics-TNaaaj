@@ -42,7 +42,5 @@ router.get('/sortby', async(req, res, next) => {
   }
 })
 
-//UPDATE country
-
 
 module.exports = router;
