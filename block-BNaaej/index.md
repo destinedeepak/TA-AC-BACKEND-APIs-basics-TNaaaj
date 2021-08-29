@@ -11,7 +11,7 @@ Extend the Assignment level 1 book-store APIs to
 - count books for each category
 - list books by author
 
-2. Add tags to each books and handle endpoints to
+2. Add tags to each books and handle endpoints to 
 
 - list all tags
 - list tags in ascending/descending order
